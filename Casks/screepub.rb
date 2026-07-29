@@ -13,8 +13,9 @@ cask "screepub" do
     strategy :github_latest
   end
 
-  # Matches LSMinimumSystemVersion in the bundle.
-  depends_on macos: ">= :sonoma"
+  # Matches LSMinimumSystemVersion in the bundle. The symbol form means
+  # "this version or newer"; the ">= :sonoma" string form is deprecated.
+  depends_on macos: :sonoma
 
   app "Screepub.app"
 
