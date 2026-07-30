@@ -1,6 +1,6 @@
 cask "screepub" do
-  version "0.2.0"
-  sha256 "1c178aed4279a9e481f4390158e794b6fb65bc5d96758c82b01ba51b611debad"
+  version "0.3.0"
+  sha256 "77887bf59bd02dfbdbc24ffb1ebf4a9decf1ad52e8bf0e14c6e40a4fac34519a"
 
   url "https://github.com/ssandweiss/screepub/releases/download/v#{version}/Screepub-macOS.dmg",
       verified: "github.com/ssandweiss/screepub/"
