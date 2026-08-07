@@ -1,8 +1,24 @@
 class Screepub < Formula
   desc "Screenplay PDF to reflowable EPUB3/MOBI converter"
   homepage "https://github.com/ssandweiss/screepub"
-  url "https://github.com/ssandweiss/screepub/releases/download/v0.3.0/screepub-macOS"
-  sha256 "173fb4899a74a48830bc9151c58141607bad18eceaf1c17d4d9c189f0702cf02"
+  # Per-arch tarballs, not one universal binary: bun embeds its runtime per
+  # slice, so universal doubled every download for no benefit. The cask's
+  # DMG stays universal on purpose, because a browser cannot detect the
+  # visitor's CPU and Homebrew can.
+  #
+  # Two things this file learned the hard way, both enforced by brew:
+  #  - NOT `on_arm do url ... end`. That is cask syntax; `brew style` rejects
+  #    url/sha256 inside on_arm/on_intel in a formula.
+  #  - NO `version` stanza. Homebrew scans the version out of the tag in the
+  #    url, and an explicit one audits as redundant. So the tag is written
+  #    literally, in BOTH urls, and a version bump edits both.
+  if Hardware::CPU.arm?
+    url "https://github.com/ssandweiss/screepub/releases/download/v0.5.2/screepub-cli-macos-arm64.tar.gz"
+    sha256 "29cd7687e217c0528de33d3cc632137dacd6e2256e0a174cdadbd7daaca9b99f"
+  else
+    url "https://github.com/ssandweiss/screepub/releases/download/v0.5.2/screepub-cli-macos-x64.tar.gz"
+    sha256 "da770edf8936138500c7f8d6f7d4a93fd0ace388f0102459c9608f893983719e"
+  end
   license "AGPL-3.0-or-later"
 
   livecheck do
@@ -10,15 +26,19 @@ class Screepub < Formula
     strategy :github_latest
   end
 
-  # A signed, notarized universal Mach-O built by the project's release
-  # workflow. There is no source build here, so no bottles.
+  # A signed, notarized Mach-O built by the project's release workflow.
+  # There is no source build here, so no bottles.
   depends_on :macos
 
   def install
-    bin.install "screepub-macOS" => "screepub"
+    # The tarball holds a single file, already named plain `screepub`.
+    bin.install "screepub"
   end
 
   test do
-    assert_match "screepub", shell_output("#{bin}/screepub --help")
+    # Pins the download to the version this formula claims: a stale url or a
+    # mismatched asset fails here rather than at somebody's prompt.
+    assert_match version.to_s, shell_output("#{bin}/screepub --version")
+    assert_match "screenplay", shell_output("#{bin}/screepub --help")
   end
 end
