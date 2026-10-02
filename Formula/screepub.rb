@@ -13,11 +13,11 @@ class Screepub < Formula
   #    url, and an explicit one audits as redundant. So the tag is written
   #    literally, in BOTH urls, and a version bump edits both.
   if Hardware::CPU.arm?
-    url "https://github.com/ssandweiss/screepub/releases/download/v0.7.4/screepub-cli-macos-arm64.tar.gz"
-    sha256 "32c98a77a5074005d826fb44bed91f996da860f44adeac45b3736e4b8dee058f"
+    url "https://github.com/ssandweiss/screepub/releases/download/v0.7.5/screepub-cli-macos-arm64.tar.gz"
+    sha256 "c3bfd634263a9c8f8a1bf22531e9421ff05be07798b11196c5d39ef78ba7c8a0"
   else
-    url "https://github.com/ssandweiss/screepub/releases/download/v0.7.4/screepub-cli-macos-x64.tar.gz"
-    sha256 "006e60b0e1463901ab99e6e388b1c855599d2937129dea8c63f277a26fee94ac"
+    url "https://github.com/ssandweiss/screepub/releases/download/v0.7.5/screepub-cli-macos-x64.tar.gz"
+    sha256 "dc2dc055248cc86756f02c59ad672e470eceb42bfb177f7f8df22b5e98132b4b"
   end
   license "AGPL-3.0-or-later"
 
