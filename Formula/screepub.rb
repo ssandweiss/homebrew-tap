@@ -1,24 +1,11 @@
 class Screepub < Formula
   desc "Screenplay PDF to reflowable EPUB3/MOBI converter"
   homepage "https://github.com/ssandweiss/screepub"
-  # Per-arch tarballs, not one universal binary: bun embeds its runtime per
-  # slice, so universal doubled every download for no benefit. The cask's
-  # DMG stays universal on purpose, because a browser cannot detect the
-  # visitor's CPU and Homebrew can.
-  #
-  # Two things this file learned the hard way, both enforced by brew:
-  #  - NOT `on_arm do url ... end`. That is cask syntax; `brew style` rejects
-  #    url/sha256 inside on_arm/on_intel in a formula.
-  #  - NO `version` stanza. Homebrew scans the version out of the tag in the
-  #    url, and an explicit one audits as redundant. So the tag is written
-  #    literally, in BOTH urls, and a version bump edits both.
-  if Hardware::CPU.arm?
-    url "https://github.com/ssandweiss/screepub/releases/download/v0.9.0/screepub-cli-macos-arm64.tar.gz"
-    sha256 "5a1612cd7d2ef26ccacac19a41ef56550c3e238299889d30ef8663f9a54bf655"
-  else
-    url "https://github.com/ssandweiss/screepub/releases/download/v0.9.0/screepub-cli-macos-x64.tar.gz"
-    sha256 "9e54a468124f1dd634f2033f1358678b3e19e3510418733b35f8e02a9195f4bc"
-  end
+  # Written whole by tools/bump-tap.sh in the screepub repository at every
+  # release: edit it there, not here. Apple silicon only since the release
+  # after 0.9.0; Intel Macs are no longer supported.
+  url "https://github.com/ssandweiss/screepub/releases/download/v0.10.0/screepub-cli-macos-arm64.tar.gz"
+  sha256 "d3a0f5e79083427b1f8070ed9619400f38efc9cf2b4d03ad41adaa2e503037f1"
   license "AGPL-3.0-or-later"
 
   livecheck do
@@ -28,10 +15,11 @@ class Screepub < Formula
 
   # A signed, notarized Mach-O built by the project's release workflow.
   # There is no source build here, so no bottles.
+  depends_on arch: :arm64
   depends_on :macos
 
   def install
-    # The tarball holds a single file, already named plain `screepub`.
+    # The tarball holds a single file, already named plain screepub.
     bin.install "screepub"
   end
 

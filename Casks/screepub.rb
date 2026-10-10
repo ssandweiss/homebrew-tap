@@ -12,7 +12,7 @@ cask "screepub" do
     strategy :github_latest
   end
 
-  deprecate! date: "2026-10-02", because: "is now downloaded from the releases page and updates itself"
+  disable! date: "2026-10-02", because: "is now downloaded from the releases page and updates itself"
 
   # Matches LSMinimumSystemVersion in the bundle. The symbol form means
   # "this version or newer"; the ">= :sonoma" string form is deprecated.
