@@ -4,8 +4,8 @@ class Screepub < Formula
   # Written whole by tools/bump-tap.sh in the screepub repository at every
   # release: edit it there, not here. Apple silicon only since the release
   # after 0.9.0; Intel Macs are no longer supported.
-  url "https://github.com/ssandweiss/screepub/releases/download/v0.12.0/screepub-cli-macos-arm64.tar.gz"
-  sha256 "a9bd440cf027d9dda872ecb27d517c37a293438bbd8b2746776411d3c0a6fd72"
+  url "https://github.com/ssandweiss/screepub/releases/download/v0.12.1/screepub-cli-macos-arm64.tar.gz"
+  sha256 "332ab664870fb3c2803f09d6afa3c11aa595509ea2d08ac8b7cb91d56a3c9ec7"
   license "AGPL-3.0-or-later"
 
   livecheck do
